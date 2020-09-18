@@ -1,15 +1,20 @@
-const { Pool, Client } = require('pg')
+const { Pool } = require('pg')
 
 const pool = new Pool({
-    user: 'dbuser',
-    host: 'database.server.com',
-    database: 'mydb',
-    password: 'secretpassword',
-    port: 3211,
+    user: 'newstar',
+    host: '192.168.0.70',
+    database: 'desenvolve_2',
+    password: 'Enoisquesimula',
+    port: 5432,
 })
 
 /* #START# Login/Cadastro */
     const login_select = (req,res) => {
+
+        pool.query('SELECT * from bimestre', (err, query_result) => {
+            console.log(err, query_result.rows)
+            pool.end()
+        })
 
         console.log(req.body)
         req.session.name = req.body.user
