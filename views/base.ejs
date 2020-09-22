@@ -1,57 +1,163 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
 
-    <head>
-        
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Moodle</title>
-        
-        <link rel="icon" href="favicon.ico" type="image/x-icon"><!-- Favicon-->
+    <div class='sp-container'>
+      
+      <%- include("./imports/menu.ejs") %>
 
-        <!-- #START# CSS's -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"><!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"><!-- Google Fonts -->
-        <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet"><!-- Bootstrap Core Css -->
-        <link href="plugins/node-waves/waves.css" rel="stylesheet" /><!-- Waves Effect Css -->
-        <link href="plugins/animate-css/animate.css" rel="stylesheet" /><!-- Animation Css -->
-        <link href="plugins/morrisjs/morris.css" rel="stylesheet" /><!-- Morris Chart Css-->
-        <link href="css/style.css" rel="stylesheet"><!-- Custom Css -->
-        <link href="css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
-        <!-- #END# CSS's -->
+      <div class='sp-content'>
+        <header class='header'>
+          <div class='sp-navbar'>
+            <div class='container-fluid'>
+              <div class='profile pull-right'>
+                <div class='avatar'>
+                  <img src='/images/logo.png'>
+                </div>
+                <span>
+                  <%= user.name %>
+                  <i class='fa fa-unsorted'></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class='main-header'>
+            <div class='container-fluid'>
+              <div class='top-header'>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <ol class='breadcrumb'>
+                      <li>
+                        <a href='#'>Risk Factors</a>
+                      </li>
+                      <li>
+                        <a href='#'>Segments</a>
+                      </li>
+                      <li class='active'>
+                        <a href='#'>New Costumers</a>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class='page-header'>
+                <div class='row'>
+                  <div class='col-md-6'>
+                    <div class='page-title'>
+                      <div class='icon'>
+                        <img src='http://placehold.it/65/33b7d8/ffffff&amp;text=SP'>
+                      </div>
+                      <h1>
+                        New Costumers
+                        <span>
+                          See Variables
+                          <i class='fa fa-angle-down'></i>
+                        </span>
+                      </h1>
+                    </div>
+                  </div>
+                  <div class='col-lg-6'>
+                    <ul class='nav nav-pills pull-right'>
+                      <li class='active' role='presentation'>
+                        <a href='#'>
+                          <span class='label'>Created</span>
+                          July 1, 2014
+                        </a>
+                      </li>
+                      <li role='presentation'>
+                        <a href='#'>
+                          <span class='label'>by</span>
+                          John Smith
+                        </a>
+                      </li>
+                      <li role='presentation'>
+                        <a href='#'>
+                          <span class='label'>Members</span>
+                          29,418
+                          <i class='fa fa-long-arrow-right'></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class='main-content'>
+          <div class='container-fluid'>
+            <div class='row'>
+              <div class='col-md-12'>
+                <div class='module'>
+                  <h2 class='module-head'>
+                    Segment Graph
+                  </h2>
+                  <div class='module-content'>
+                    Module Content
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-4'>
+                <div class='module'>
+                  <h2 class='module-head'>
+                    Alert
+                  </h2>
+                  <div class='module-content'>
+                    Module Content
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-8'>
+                <div class='module'>
+                  <h2 class='module-head'>
+                    Segment KPIs
+                    <div class='label'>Graph measured vs. last month</div>
+                  </h2>
+                  <div class='module-content'>
+                    Module Content
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-12'>
+                <div class='module'>
+                  <h2 class='module-head'>
+                    Email Customers
+                  </h2>
+                  <div class='module-content'>
+                    Module Content
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col-md-12'>
+              <a class='btn btn-default toggler' href='#'>
+                <i class='fa fa-exchange'></i>
+              </a>
+              Toggle Sidebar
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    </head>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'>
+    </script><script  src="/js/script.js"></script>
 
-    <body class="theme-red">
-
-        <%- include("layouts/page_loader.ejs") %>
-        <%- include("layouts/sidebars_all.ejs") %>
-
-        <!-- #START# Content-->
-        <section class="content">
-           
-        </section>
-        <!-- #END# Content-->
-
-        <!-- #START# Scripts-->
-        <script src="plugins/jquery/jquery.min.js"></script><!-- Jquery Core Js -->
-        <script src="plugins/bootstrap/js/bootstrap.js"></script><!-- Bootstrap Core Js -->
-        <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script><!-- Select Plugin Js -->
-        <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script><!-- Slimscroll Plugin Js -->
-        <script src="plugins/node-waves/waves.js"></script><!-- Waves Effect Plugin Js -->
-        <script src="plugins/jquery-countto/jquery.countTo.js"></script><!-- Jquery CountTo Plugin Js -->
-        <script src="plugins/raphael/raphael.min.js"></script><!-- Morris Plugin Js -->
-        <script src="plugins/morrisjs/morris.js"></script><!-- Morris Plugin Js -->
-        <script src="plugins/chartjs/Chart.bundle.js"></script><!-- ChartJs -->
-        <script src="plugins/jquery-sparkline/jquery.sparkline.js"></script><!-- Sparkline Chart Plugin Js -->
-        <script src="js/admin.js"></script><!-- Custom Js -->
-        <script src="js/pages/index.js"></script><!-- Custom Js -->
-        <script src="js/demo.js"></script><!-- Demo Js -->
-        <script src="/socket.io/socket.io.js"></script><!-- Socket.IO -->
-        <script src="/js/socket_manager.js"></script><!-- Socket.IO -->
-        <!-- #END# Scripts-->
-
-    </body>
-
+  </body>
 </html>
