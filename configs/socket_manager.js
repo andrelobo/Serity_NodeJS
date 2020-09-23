@@ -24,10 +24,6 @@ const socket_manager = (io, postgress_manager) => {
             io.in(data.cla_turma).emit("notification","Nova avaliacao de "+data.materia+": "+data.titulo);
         });
 
-        socket.on("disconnect", function () {
-            io.in(data.cla_turma).emit("offline",data.user_name);
-        });
-
     });
     
 }
