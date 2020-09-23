@@ -11,17 +11,44 @@ const pool = new Pool({
 /* #START# Login/Cadastro */
     const login_select = (req,res) => {
 
-        pool.query('SELECT * from bimestre', (err, query_result) => {
-            console.log(err, query_result.rows)
-            pool.end()
-        })
+        if(req.body.user == "admin"  && req.body.pass == "CsGrede371s7"){
+            req.session.name = req.body.user
+            req.session.nivel = '3'
+            res.redirect("home")
+        }else{
+            aluno =  "SELECT alu_nome, alu_codigo"
+            aluno += " FROM aluno, moodle_usuarios"
+            aluno += " WHERE moa_senha = '"+req.body.pass+"' AND"
+            aluno += " moa_login = '"+req.body.user+"' AND "
+            aluno += " moa_alucod = alu_codigo";
 
-        console.log(req.body)
-        req.session.name = req.body.user
-        req.session.email = req.body.pass
-        req.session.nivel = '1'
-        res.redirect("home")
+            professor =  "SELECT pro_nome, pro_codigo"
+            professor += " FROM usuario, professor"
+            professor += " WHERE usu_senha = '"+req.body.pass+"' AND"
+            professor += " usu_usuario = '"+req.body.user+"' AND "
+            professor += " usu_codigo = pro_usucod AND usu_status = 't'";
 
+            pool.query(aluno, (err, query_result) => {
+                if(query_result.rows != ""){
+                    req.session.name = query_result.rows[0].alu_nome
+                    req.session.codigo = query_result.rows[0].alu_codigo
+                    req.session.nivel = '1'
+                    res.redirect("home")
+                }else{
+                    pool.query(professor, (err, query_result) => {
+                        if(query_result.rows != ""){
+                            req.session.name = query_result.rows[0].pro_nome
+                            req.session.codigo = query_result.rows[0].pro_codigo
+                            req.session.nivel = '2'
+                            res.redirect("home")
+                        }else{
+                            //colocar alerta para o usuario que o usuario não exite
+                            res.redirect("/")
+                        }
+                    })
+                }
+            })
+        }
     }
     const login_insert = (req,res) => {
 
