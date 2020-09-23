@@ -29,6 +29,7 @@ const conteudosroute = require('./routes/conteudosroute')(app,postgress_manager)
 const trabalhosroute = require('./routes/trabalhosroute')(app,postgress_manager)
 const chatsroute = require('./routes/chatsroute')(app,postgress_manager)
 const avaliacoesroute = require('./routes/avaliacoesroute')(app,postgress_manager)
+const relatoriosroute = require('./routes/relatoriosroute')(app,postgress_manager)
 
 //Startup
 const port = 3000

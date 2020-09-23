@@ -110,8 +110,55 @@ const pool = new Pool({
         res.redirect("home")
 
     }
-/* #END# Conteudo */
+/* #END# Trabalho */
 
+/* #START# Avaliacao */
+    const avaliacao_select = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+    const avaliacao_insert = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+    const avaliacao_update = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+    const avaliacao_delete = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+/* #END# Avaliacao */
+
+/* #START# Log */
+    const log_select = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+    const log_insert = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+    const log_delete = (req,res) => {
+
+        console.log(req.body)
+        res.redirect("home")
+
+    }
+/* #END# Log */
 
 module.exports = {
     "login_select": login_select,
@@ -125,5 +172,14 @@ module.exports = {
     "trabalho_select": trabalho_select,
     "trabalho_insert": trabalho_insert,
     "trabalho_update": trabalho_update,
-    "trabalho_delete": trabalho_delete
+    "trabalho_delete": trabalho_delete,
+
+    "avaliacao_select": avaliacao_select,
+    "avaliacao_insert": avaliacao_insert,
+    "avaliacao_update": avaliacao_update,
+    "avaliacao_delete": avaliacao_delete,
+
+    "log_select": log_select,
+    "log_insert": log_insert,
+    "log_delete": log_delete
 }
