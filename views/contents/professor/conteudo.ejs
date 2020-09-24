@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>Moodle</title>
+        
+        <link rel="icon" href="favcon.png"><!-- Favicon-->
+
+        <!-- #START# CSS's -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"><!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"><!-- Google Fonts -->
+        <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet"><!-- Bootstrap Core Css -->
+        <link href="plugins/node-waves/waves.css" rel="stylesheet" /><!-- Waves Effect Css -->
+        <link href="plugins/animate-css/animate.css" rel="stylesheet" /><!-- Animation Css -->
+        <link href="plugins/morrisjs/morris.css" rel="stylesheet" /><!-- Morris Chart Css-->
+        <link href="css/style.css" rel="stylesheet"><!-- Custom Css -->
+        <link href="css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
+        <!-- #END# CSS's -->
+
+    </head>
+
+    <body class="theme-red">
+
+        <%- include("../../layouts/page_loader.ejs") %>
+        <%- include("../../layouts/sidebars_all.ejs") %>
+
+        <!-- #START# Content-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="block-header">
+                    <h2>Conteudos</h2><br>
+                    <button type="button" data-color="red" data-toggle="modal" data-target="#mdModal" class="btn bg-red waves-effect">Adicionar</button>
+                </div>
+                <% conteudos.forEach((conteudo) => { %>
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                        <div class="card">
+                            <div class="header bg-red">
+                                <h2>
+                                    <%- conteudo.disciplina %> <small><%- conteudo.turma %></small>
+                                </h2>
+                                <ul class="header-dropdown m-r--5">
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %> 
+
+                <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
+                                vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
+                                Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
+                                nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
+                                Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- #END# Content-->
+
+        <!-- #START# Scripts-->
+        <script src="plugins/jquery/jquery.min.js"></script><!-- JQuery plugin -->
+        <script src="plugins/bootstrap/js/bootstrap.js"></script><!-- Bootstrap Core Js -->
+        <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script><!-- Select Plugin Js -->
+        <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script><!-- Slimscroll Plugin Js -->
+        <script src="plugins/node-waves/waves.js"></script><!-- Waves Effect Plugin Js -->
+        <script src="plugins/waitme/waitMe.js"></script><!-- Wait Me Plugin Js -->
+        <script src="js/admin.js"></script><!-- Custom Js -->
+        <script src="js/pages/cards/colored.js"></script><!-- Custom Js -->
+        <script src="js/pages/ui/modals.js"></script>
+        <script src="js/demo.js"></script><!-- Demo Js -->
+        <script src="/socket.io/socket.io.js"></script><!-- Socket.IO -->
+        <script src="/js/socket_manager.js"></script><!-- Socket.IO -->
+        <!-- #END# Scripts-->
+
+    </body>
+
+</html>

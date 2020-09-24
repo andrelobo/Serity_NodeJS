@@ -60,9 +60,32 @@ const pool = new Pool({
 
 /* #START# Conteudo */
     const conteudo_select = (req,res) => {
-
-        console.log(req.body)
-        res.redirect("home")
+        const metadata = {
+            user: {
+                name: req.session.name, 
+                codigo: req.session.codigo, 
+                nivel: req.session.nivel 
+            }, 
+            active: "conteudos",
+            conteudos: [
+                {
+                    disciplina: "Matematica",
+                    turma: "3º EM C",
+                    codigo: "1"
+                },
+                {
+                    disciplina: "Informatica",
+                    turma: "3º EM A",
+                    codigo: "2"
+                },
+                {
+                    disciplina: "Ciencias",
+                    turma: "3º EM B",
+                    codigo: "3"
+                }
+            ]
+        }
+        return metadata
 
     }
     const conteudo_insert = (req,res) => {

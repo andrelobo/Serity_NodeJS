@@ -1,8 +1,10 @@
 
 const conteudosroute = (app,postgress_manager) => {
     app.get('/conteudos', (req, res) => {
-        res.render('conteudos', {user: {name: req.session.name, email: req.session.email, nivel: req.session.nivel }, active: "conteudos"})
+       var metadata = postgress_manager.conteudo_select(req,res)
+       res.render('conteudos', metadata)
     })
+
 }
 
 module.exports = conteudosroute
