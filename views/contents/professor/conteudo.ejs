@@ -15,9 +15,12 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"><!-- Google Fonts -->
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet"><!-- Bootstrap Core Css -->
         <link href="plugins/node-waves/waves.css" rel="stylesheet" /><!-- Waves Effect Css -->
+        <link href="plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" /><!-- Bootstrap Select Css -->
+        <link href="plugins/multi-select/css/multi-select.css" rel="stylesheet"><!-- Multi Select Css -->
         <link href="plugins/animate-css/animate.css" rel="stylesheet" /><!-- Animation Css -->
         <link href="plugins/morrisjs/morris.css" rel="stylesheet" /><!-- Morris Chart Css-->
         <link href="css/style.css" rel="stylesheet"><!-- Custom Css -->
+        <link href="plugins/dropzone/dropzone.css" rel="stylesheet"><!-- Dropzone Css -->
         <link href="css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
         <!-- #END# CSS's -->
 
@@ -35,6 +38,7 @@
                     <h2>Conteudos</h2><br>
                     <button type="button" data-color="red" data-toggle="modal" data-target="#mdModal" class="btn bg-red waves-effect">Adicionar</button>
                 </div>
+                
                 <% conteudos.forEach((conteudo) => { %>
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
                         <div class="card">
@@ -48,9 +52,10 @@
                                             <i class="material-icons">more_vert</i>
                                         </a>
                                         <ul class="dropdown-menu pull-right">
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Editar</a></li>
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Genreciar</a></li>
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Vizualizar</a></li>
+                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Excluir</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -58,24 +63,68 @@
                         </div>
                     </div>
                 <% }) %> 
+                
 
                 <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                            <div class="modal-header bg-red">
+                                <h4 class="modal-title" id="defaultModalLabel">Adicionar Conteudo</h4>
                             </div>
-                            <div class="modal-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
-                                vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
-                                Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
-                                nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
-                                Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                            </div>
+                            <form>
+                                <div class="modal-body">
+                                    <div class="form-group form-float">
+                                        <p><b>Titulo e descrição</b></p>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control">
+                                            <label class="form-label">Titulo</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <textarea rows="1" class="form-control no-resize auto-growth" placeholder="Descrição" style="overflow: hidden; overflow-wrap: break-word; height: 232px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Turma(s)</b></p>
+                                        <select class="form-control show-tick" multiple>
+                                            <option>3º EMT C</option>
+                                            <option>3º EMT D</option>
+                                            <option>3º EMT A</option>
+                                            <option>3º EMT B</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Disciplina</b></p>
+                                        <select class="form-control show-tick" multiple>
+                                            <option>Filosofia</option>
+                                            <option>Historia</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Data/hora inicio - fim</b></p>
+                                        <div class="input-daterange input-group" id="bs_datepicker_range_container">
+                                            <div class="form-line">
+                                                <input type="datetime-local" class="form-control">
+                                            </div>
+                                            <span class="input-group-addon">ate</span>
+                                            <div class="form-line">
+                                                <input type="datetime-local" class="datetimepicker form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Anexos</b></p>
+                                        <div class="form-line">
+                                            <input type="file" class="form-control" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-red">
+                                    <button type="button" class="btn btn-link waves-effect">Adicionar</button>
+                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -91,9 +140,12 @@
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script><!-- Slimscroll Plugin Js -->
         <script src="plugins/node-waves/waves.js"></script><!-- Waves Effect Plugin Js -->
         <script src="plugins/waitme/waitMe.js"></script><!-- Wait Me Plugin Js -->
+        <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+        <script src="plugins/multi-select/js/jquery.multi-select.js"></script>
         <script src="js/admin.js"></script><!-- Custom Js -->
         <script src="js/pages/cards/colored.js"></script><!-- Custom Js -->
         <script src="js/pages/ui/modals.js"></script>
+        <script src="plugins/dropzone/dropzone.js"></script><!-- Dropzone Plugin Js -->
         <script src="js/demo.js"></script><!-- Demo Js -->
         <script src="/socket.io/socket.io.js"></script><!-- Socket.IO -->
         <script src="/js/socket_manager.js"></script><!-- Socket.IO -->
