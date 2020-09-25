@@ -6,10 +6,8 @@ const conteudosroute = (app,postgress_manager,uploader) => {
        res.render('conteudos', metadata)
     })
 
-    app.post('/conteudos', uploader.array('anexos'), function (req, res, next) {
-        console.log(req.files)
-        console.log(req.body)
-        res.redirect('/conteudos')
+    app.post('/conteudos', uploader.array('anexos'), function (req, res) {
+        postgress_manager.conteudo_insert(req,res)
     })
 
 }

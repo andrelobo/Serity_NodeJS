@@ -82,7 +82,40 @@ const pool = new Pool({
                     disciplina: "Ciencias",
                     turma: "3º EM B",
                     codigo: "3"
+                },
+                {
+                    disciplina: "Quimica",
+                    turma: "3º EM D",
+                    codigo: "4"
                 }
+            ],
+            turmas: [
+                {
+                    turma: "3º EMT A",
+                    codigo: "1"
+                },
+                {
+                    turma: "3º EMT B",
+                    codigo: "1"
+                },
+                {
+                    turma: "3º EMT C",
+                    codigo: "1"
+                },
+                {
+                    turma: "3º EMT D",
+                    codigo: "1"
+                }
+            ],
+            disciplinas: [
+                {
+                    descricao: "Filosofia",
+                    codigo: "1"
+                },
+                {
+                    descricao: "Historia",
+                    codigo: "2"
+                },
             ]
         }
         return metadata
@@ -91,7 +124,8 @@ const pool = new Pool({
     const conteudo_insert = (req,res) => {
 
         console.log(req.body)
-        res.redirect("home")
+        console.log(req.files)
+        res.redirect("/conteudos")
 
     }
     const conteudo_update = (req,res) => {

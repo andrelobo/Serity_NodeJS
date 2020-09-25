@@ -62,8 +62,7 @@
                             </div>
                         </div>
                     </div>
-                <% }) %> 
-                
+                <% }) %>
 
                 <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
@@ -88,17 +87,17 @@
                                     <div class="form-group form-float">
                                         <p><b>Turma(s)</b></p>
                                         <select name="turma" class="form-control show-tick" multiple>
-                                            <option value="1">3º EMT C</option>
-                                            <option value="2">3º EMT D</option>
-                                            <option value="3">3º EMT A</option>
-                                            <option value="4">3º EMT B</option>
+                                            <% turmas.forEach((turma) => { %>
+                                                <option value="<%- turma.codigo %>"><%- turma.turma %></option>
+                                            <% }) %>
                                         </select>
                                     </div>
                                     <div class="form-group form-float">
                                         <p><b>Disciplina</b></p>
                                         <select name="disciplina" class="form-control show-tick" multiple>
-                                            <option value="1">Filosofia</option>
-                                            <option value="2">Historia</option>
+                                            <% disciplinas.forEach((disciplina) => { %>
+                                                <option value="<%- disciplina.codigo %>"><%- disciplina.descricao %></option>
+                                            <% }) %>
                                         </select>
                                     </div>
                                     <div class="form-group form-float">
