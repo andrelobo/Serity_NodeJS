@@ -8,6 +8,8 @@ const pool = new Pool({
     port: 5432,
 })
 
+const currentYear = new Date().getFullYear()
+
 /* #START# Login/Cadastro */
     const login_select = (req,res) => {
 
@@ -60,6 +62,7 @@ const pool = new Pool({
 
 /* #START# Conteudo */
     const conteudo_select = (req,res) => {
+
         const metadata = {
             user: {
                 name: req.session.name, 
@@ -67,65 +70,104 @@ const pool = new Pool({
                 nivel: req.session.nivel 
             }, 
             active: "conteudos",
-            conteudos: [
-                {
-                    disciplina: "Matematica",
-                    turma: "3º EM C",
-                    codigo: "1"
-                },
-                {
-                    disciplina: "Informatica",
-                    turma: "3º EM A",
-                    codigo: "2"
-                },
-                {
-                    disciplina: "Ciencias",
-                    turma: "3º EM B",
-                    codigo: "3"
-                },
-                {
-                    disciplina: "Quimica",
-                    turma: "3º EM D",
-                    codigo: "4"
-                }
-            ],
-            turmas: [
-                {
-                    turma: "3º EMT A",
-                    codigo: "1"
-                },
-                {
-                    turma: "3º EMT B",
-                    codigo: "1"
-                },
-                {
-                    turma: "3º EMT C",
-                    codigo: "1"
-                },
-                {
-                    turma: "3º EMT D",
-                    codigo: "1"
-                }
-            ],
-            disciplinas: [
-                {
-                    descricao: "Filosofia",
-                    codigo: "1"
-                },
-                {
-                    descricao: "Historia",
-                    codigo: "2"
-                },
-            ]
+            conteudos: [],
+            turmas: [],
+            disciplinas: []
         }
-        return metadata
+
+        var disciplinas = "select distinct dis_descricao, dis_codigo"
+        disciplinas += " from diario, disciplina"
+        disciplinas += " where dia_procod='"+req.session.codigo+"' and"
+        disciplinas += " dia_ano='"+currentYear+"' and"
+        disciplinas += " dia_ativo = 't' and"
+        disciplinas += " dis_codigo = dia_discod"
+
+        var classes = "select distinct cla_codigo, cla_anoserie, cla_turma, cla_periodo, cla_ensino"
+        classes += " from diario, classe"
+        classes += " where dia_procod='"+req.session.codigo+"' and"
+        classes += " dia_ano='"+currentYear+"' and"
+        classes += " dia_ativo = 't' and"
+        classes += " cla_codigo = dia_clacod"
+
+        var conteudos = "select moc_codigo, moc_titulo, moc_descricao, cla_anoserie, cla_ensino, cla_turma"
+        conteudos += " from diario, moodle_conteudos, classe"
+        conteudos += " where dia_procod='"+req.session.codigo+"' and"
+        conteudos += " dia_ano='"+currentYear+"' and"
+        conteudos += " dia_ativo = 't' and"
+        conteudos += " moc_diacod = dia_codigo and"
+        conteudos += " cla_codigo = dia_clacod"
+
+        pool.query(disciplinas, (err, query_result) => {
+            query_result.rows.forEach(row => {
+                metadata.disciplinas.push({
+                    codigo: row.dis_codigo, 
+                    descricao: row.dis_descricao
+                })
+            });
+
+            pool.query(classes, (err, query_result) => {
+                query_result.rows.forEach(row => {
+                    metadata.turmas.push({
+                        codigo: row.cla_codigo, 
+                        turma: row.cla_anoserie+"º "+row.cla_ensino+" "+row.cla_turma
+                    })
+                });
+
+                pool.query(conteudos, (err, query_result) => {
+                    query_result.rows.forEach(row => {
+                        metadata.conteudos.push({
+                            codigo: row.moc_codigo, 
+                            titulo: row.moc_titulo+" - "+row.cla_anoserie+"º "+row.cla_ensino+" "+row.cla_turma,
+                            descricao: row.moc_descricao
+                        })
+                    });
+    
+                    res.render('contents/professor/conteudos', metadata)
+
+                })
+
+            })
+
+        })
 
     }
     const conteudo_insert = (req,res) => {
 
-        console.log(req.body)
-        console.log(req.files)
-        res.redirect("/conteudos")
+        var pega_diarios = "SELECT dia_codigo"
+        pega_diarios += " FROM diario "
+        pega_diarios += " WHERE dia_clacod IN ("+req.body.turma.join(",")+") AND"
+        pega_diarios += " dia_discod IN ("+req.body.disciplina.join(",")+") AND"
+        pega_diarios += " dia_procod = '"+req.session.codigo+"' AND"
+        pega_diarios += " dia_ativo = 't' AND"
+        pega_diarios += " dia_ano = '"+currentYear+"'"
+
+        pool.query(pega_diarios, (err, query_result) => {
+            query_result.rows.forEach(row => {
+
+                var salva_contudo = "INSERT INTO moodle_conteudos"
+                salva_contudo += " VALUES("
+                salva_contudo += " DEFAULT,"
+                salva_contudo += " '"+req.body.titulo+"',"
+                salva_contudo += " '"+req.body.descricao+"',"
+                salva_contudo += " '"+req.body.datai+"',"
+                salva_contudo += " '"+req.body.dataf+"',"
+                salva_contudo += " '"+row.dia_codigo+"',"
+                
+                salva_contudo += " 'f'"
+
+                salva_contudo += " ) RETURNING moc_codigo"
+
+                pool.query(salva_contudo, (err, query_result) => {
+
+                    console.log("[!] Novo conteudo cadastrado codigo: "+query_result.rows[0].moc_codigo)
+                    
+                })
+                
+            })
+
+            res.redirect("professor/conteudos")
+
+        })
 
     }
     const conteudo_update = (req,res) => {

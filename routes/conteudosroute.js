@@ -1,12 +1,23 @@
 
 const conteudosroute = (app,postgress_manager,uploader) => {
 
-    app.get('/conteudos', (req, res) => {
-       var metadata = postgress_manager.conteudo_select(req,res)
-       res.render('conteudos', metadata)
+    app.get('/professor/conteudos', (req, res) => {
+       postgress_manager.conteudo_select(req,res)
     })
 
-    app.post('/conteudos', uploader.array('anexos'), function (req, res) {
+    app.get('/professor/conteudos/adicionar', (req, res) => {
+        postgress_manager.conteudo_select(req,res)
+    })
+
+    app.get('/professor/conteudos/visualizar', (req, res) => {
+        postgress_manager.conteudo_select(req,res)
+    })
+
+    app.get('/professor/conteudos/editar', (req, res) => {
+        postgress_manager.conteudo_select(req,res)
+    })
+
+    app.post('/professor/conteudos', uploader.array('anexos'), function (req, res) {
         postgress_manager.conteudo_insert(req,res)
     })
 
