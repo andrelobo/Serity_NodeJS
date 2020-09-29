@@ -107,17 +107,28 @@ const currentYear = new Date().getFullYear()
 
             pool.query(classes, (err, query_result) => {
                 query_result.rows.forEach(row => {
+                    if(row.cla_ensino == "Ensino Fundamental"){
+                        var ensino = "EF"
+                     }else{
+                         var ensino = "EM"
+                     }
                     metadata.turmas.push({
                         codigo: row.cla_codigo, 
-                        turma: row.cla_anoserie+"º "+row.cla_ensino+" "+row.cla_turma
+                        turma: row.cla_anoserie+"º "+ensino+" "+row.cla_turma
                     })
                 });
 
                 pool.query(conteudos, (err, query_result) => {
                     query_result.rows.forEach(row => {
+                        if(row.cla_ensino == "Ensino Fundamental"){
+                           var ensino = "EF"
+                        }else{
+                            var ensino = "EM"
+                        }
+                        var sub_titulo = row.cla_anoserie+"º "+ensino+" "+row.cla_turma
                         metadata.conteudos.push({
                             codigo: row.moc_codigo, 
-                            titulo: row.moc_titulo+" - "+row.cla_anoserie+"º "+row.cla_ensino+" "+row.cla_turma,
+                            titulo: row.moc_titulo+" - "+sub_titulo,
                             descricao: row.moc_descricao
                         })
                     });
@@ -125,6 +136,61 @@ const currentYear = new Date().getFullYear()
                     res.render('contents/professor/conteudos', metadata)
 
                 })
+
+            })
+
+        })
+
+    }
+    const conteudo_select2 = (req,res) => {
+
+        const metadata = {
+            user: {
+                name: req.session.name, 
+                codigo: req.session.codigo, 
+                nivel: req.session.nivel 
+            }, 
+            active: "conteudos",
+            turmas: [],
+            disciplinas: []
+        }
+
+        var disciplinas = "select distinct dis_descricao, dis_codigo"
+        disciplinas += " from diario, disciplina"
+        disciplinas += " where dia_procod='"+req.session.codigo+"' and"
+        disciplinas += " dia_ano='"+currentYear+"' and"
+        disciplinas += " dia_ativo = 't' and"
+        disciplinas += " dis_codigo = dia_discod"
+
+        var classes = "select distinct cla_codigo, cla_anoserie, cla_turma, cla_periodo, cla_ensino"
+        classes += " from diario, classe"
+        classes += " where dia_procod='"+req.session.codigo+"' and"
+        classes += " dia_ano='"+currentYear+"' and"
+        classes += " dia_ativo = 't' and"
+        classes += " cla_codigo = dia_clacod"
+
+        pool.query(disciplinas, (err, query_result) => {
+            query_result.rows.forEach(row => {
+                metadata.disciplinas.push({
+                    codigo: row.dis_codigo, 
+                    descricao: row.dis_descricao
+                })
+            });
+
+            pool.query(classes, (err, query_result) => {
+                query_result.rows.forEach(row => {
+                    if(row.cla_ensino == "Ensino Fundamental"){
+                        var ensino = "EF"
+                     }else{
+                         var ensino = "EM"
+                     }
+                    metadata.turmas.push({
+                        codigo: row.cla_codigo, 
+                        turma: row.cla_anoserie+"º "+ensino+" "+row.cla_turma
+                    })
+                });
+
+                res.render('contents/professor/conteudos_adicionar', metadata)
 
             })
 
@@ -165,7 +231,7 @@ const currentYear = new Date().getFullYear()
                 
             })
 
-            res.redirect("professor/conteudos")
+            res.redirect("/professor/conteudos")
 
         })
 
@@ -264,6 +330,7 @@ module.exports = {
     "login_insert": login_insert,
 
     "conteudo_select": conteudo_select,
+    "conteudo_select2": conteudo_select2,
     "conteudo_insert": conteudo_insert,
     "conteudo_update": conteudo_update,
     "conteudo_delete": conteudo_delete,
