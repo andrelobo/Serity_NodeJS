@@ -197,6 +197,84 @@ const currentYear = new Date().getFullYear()
         })
 
     }
+    const conteudo_select3 = (req,res) => {
+
+        const metadata = {
+            user: {
+                name: req.session.name, 
+                codigo: req.session.codigo, 
+                nivel: req.session.nivel 
+            }, 
+            active: "conteudos",
+            conteudo: []
+        }
+
+        var conteudo = "SELECT * from moodle_conteudos"
+        conteudo += " where moc_codigo='"+req.query.codigo+"'"
+
+        pool.query(conteudo, (err, query_result) => {
+            console.log(err)
+            metadata.conteudo.push(query_result.rows[0])
+            console.log(metadata)
+            res.render('contents/professor/conteudos_visualizar', metadata)
+        });
+
+    }
+    const conteudo_select4 = (req,res) => {
+
+        const metadata = {
+            user: {
+                name: req.session.name, 
+                codigo: req.session.codigo, 
+                nivel: req.session.nivel 
+            }, 
+            active: "conteudos",
+            turmas: [],
+            disciplinas: []
+        }
+
+        var disciplinas = "select distinct dis_descricao, dis_codigo"
+        disciplinas += " from diario, disciplina"
+        disciplinas += " where dia_procod='"+req.session.codigo+"' and"
+        disciplinas += " dia_ano='"+currentYear+"' and"
+        disciplinas += " dia_ativo = 't' and"
+        disciplinas += " dis_codigo = dia_discod"
+
+        var classes = "select distinct cla_codigo, cla_anoserie, cla_turma, cla_periodo, cla_ensino"
+        classes += " from diario, classe"
+        classes += " where dia_procod='"+req.session.codigo+"' and"
+        classes += " dia_ano='"+currentYear+"' and"
+        classes += " dia_ativo = 't' and"
+        classes += " cla_codigo = dia_clacod"
+
+        pool.query(disciplinas, (err, query_result) => {
+            query_result.rows.forEach(row => {
+                metadata.disciplinas.push({
+                    codigo: row.dis_codigo, 
+                    descricao: row.dis_descricao
+                })
+            });
+
+            pool.query(classes, (err, query_result) => {
+                query_result.rows.forEach(row => {
+                    if(row.cla_ensino == "Ensino Fundamental"){
+                        var ensino = "EF"
+                     }else{
+                         var ensino = "EM"
+                     }
+                    metadata.turmas.push({
+                        codigo: row.cla_codigo, 
+                        turma: row.cla_anoserie+"º "+ensino+" "+row.cla_turma
+                    })
+                });
+
+                res.render('contents/professor/conteudos_editar', metadata)
+
+            })
+
+        })
+
+    }
     const conteudo_insert = (req,res) => {
 
         var pega_diarios = "SELECT dia_codigo"
@@ -331,6 +409,8 @@ module.exports = {
 
     "conteudo_select": conteudo_select,
     "conteudo_select2": conteudo_select2,
+    "conteudo_select3": conteudo_select3,
+    "conteudo_select4": conteudo_select4,
     "conteudo_insert": conteudo_insert,
     "conteudo_update": conteudo_update,
     "conteudo_delete": conteudo_delete,
