@@ -13,7 +13,7 @@ const currentYear = new Date().getFullYear()
 /* #START# Login/Cadastro */
     const login_select = (req,res) => {
 
-        if(req.body.user == "admin"  && req.body.pass == "CsGrede371s7"){
+        if(req.body.user == "admin"  && req.body.pass == "123"){
             req.session.name = req.body.user
             req.session.nivel = '3'
             res.redirect("home")
@@ -277,15 +277,27 @@ const currentYear = new Date().getFullYear()
     }
     const conteudo_insert = (req,res) => {
 
-        var pega_diarios = "SELECT dia_codigo"
-        pega_diarios += " FROM diario "
-        pega_diarios += " WHERE dia_clacod IN ("+req.body.turma.join(",")+") AND"
-        pega_diarios += " dia_discod IN ("+req.body.disciplina.join(",")+") AND"
+        var pega_diarios = "SELECT DISTINCT dia_codigo"
+        pega_diarios += " FROM diario WHERE"
+
+        if(typeof req.body.turma == "string"){
+            pega_diarios += " dia_clacod = '"+req.body.turma+"' AND"
+        }else{
+            pega_diarios += " dia_clacod IN ("+req.body.turma.join(",")+") AND"
+        }
+
+        if(typeof req.body.disciplina == "string"){
+            pega_diarios += " dia_discod = '"+req.body.disciplina+"' AND"
+        }else{
+            pega_diarios += " dia_discod IN ("+req.body.disciplina.join(",")+") AND"
+        }
+
         pega_diarios += " dia_procod = '"+req.session.codigo+"' AND"
         pega_diarios += " dia_ativo = 't' AND"
         pega_diarios += " dia_ano = '"+currentYear+"'"
-
         pool.query(pega_diarios, (err, query_result) => {
+            var count = query_result.rows.length
+            var counter = 0;
             query_result.rows.forEach(row => {
 
                 var salva_contudo = "INSERT INTO moodle_conteudos"
@@ -297,19 +309,50 @@ const currentYear = new Date().getFullYear()
                 salva_contudo += " '"+req.body.dataf+"',"
                 salva_contudo += " '"+row.dia_codigo+"',"
                 
-                salva_contudo += " 'f'"
+                if(req.files == ""){
+                    salva_contudo += " 'f'"
+                }else{
+                    salva_contudo += " 't'"
+                }
 
-                salva_contudo += " ) RETURNING moc_codigo"
+                salva_contudo += " ) RETURNING moc_codigo;"
 
                 pool.query(salva_contudo, (err, query_result) => {
 
                     console.log("[!] Novo conteudo cadastrado codigo: "+query_result.rows[0].moc_codigo)
                     
+                    if(req.files != ""){
+                        var count_files = req.files.length
+                        var counter_files = 0;
+                        
+                        req.files.forEach(file => {
+                            var salva_anexo = "INSERT INTO moodle_anexos"
+                            salva_anexo += " VALUES("
+                            salva_anexo += " DEFAULT,"
+                            salva_anexo += " '"+file.path+"',"
+                            salva_anexo += " '"+file.originalname+"',"
+                            salva_anexo += " '"+file.filename+"',"
+                            salva_anexo += " '"+query_result.rows[0].moc_codigo+"'"
+                            salva_anexo += " )"
+                            pool.query(salva_anexo, (err, query_result) => {
+                                counter_files++
+                                if(counter_files==count_files){
+                                    counter++
+                                }
+                                if(counter == count){
+                                    res.redirect("/professor/conteudos")
+                                }
+                            })
+                        })
+                    }else{
+                        counter++
+                        if(counter == count){
+                            res.redirect("/professor/conteudos")
+                        }
+                    }
                 })
                 
             })
-
-            res.redirect("/professor/conteudos")
 
         })
 
@@ -322,8 +365,13 @@ const currentYear = new Date().getFullYear()
     }
     const conteudo_delete = (req,res) => {
 
-        console.log(req.body)
-        res.redirect("home")
+        var del_conteudo = "delete from moodle_conteudos"
+        del_conteudo += " where moc_codigo='"+req.body.codigo+"'"
+
+        pool.query(del_conteudo, (err, query_result) => {
+            res.status(200)
+            res.send(err)
+        })
 
     }
 /* #END# Conteudo */

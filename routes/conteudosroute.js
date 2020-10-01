@@ -25,7 +25,8 @@ const conteudosroute = (app,postgress_manager,uploader) => {
         postgress_manager.conteudo_update(req,res)
     })
 
-    app.get('/professor/conteudos/deletar', (req, res) => {
+    app.post('/professor/conteudos/deletar', (req, res) => {
+        console.log("[X]deletado um conteudo: "+JSON.stringify(req.body))
         postgress_manager.conteudo_delete(req,res)
     })
 

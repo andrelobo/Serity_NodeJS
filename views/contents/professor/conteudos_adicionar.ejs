@@ -3,12 +3,12 @@
 
     <head>
         
-        <meta charset="ISO-8859-1">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Moodle</title>
         
-        <link rel="icon" href="favcon.png"><!-- Favicon-->
+        <link rel="icon" href="../../favcon.png"><!-- Favicon-->
 
         <!-- #START# CSS's -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"><!-- Google Fonts -->
@@ -56,16 +56,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group form-float">
-                                            <p><b>Descrição</b></p>
+                                            <p><b>DescriÃ§Ã£o</b></p>
                                             <div class="form-line">
-                                                <textarea name=descricao id="ckeditor" placeholder="Descrição"></textarea>
+                                                <textarea name=descricao id="ckeditor" placeholder="DescriÃ§Ã£o"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group form-float">
                                             <p><b>Turma(s)</b></p>
                                             <select name="turma" class="form-control show-tick" multiple>
                                                 <% turmas.forEach((turma) => { %>
-                                                    <option value="<%- turma.codigo %>"><%- turma.turma %></option>
+                                                    <option class="turma" value="<%- turma.codigo %>" data-turma="<%- turma.turma %>"><%- turma.turma %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -73,7 +73,7 @@
                                             <p><b>Disciplina</b></p>
                                             <select name="disciplina" class="form-control show-tick" multiple>
                                                 <% disciplinas.forEach((disciplina) => { %>
-                                                    <option value="<%- disciplina.codigo %>"><%- disciplina.descricao %></option>
+                                                    <option class="disciplina" value="<%- disciplina.codigo %>" data-descricao="<%- disciplina.descricao %>"><%- disciplina.descricao %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -81,11 +81,11 @@
                                             <p><b>Data/hora inicio - fim</b></p>
                                             <div class="input-daterange input-group" id="bs_datepicker_range_container">
                                                 <div class="form-line">
-                                                    <input name="datai" type="datetime-local" class="form-control">
+                                                    <input name="datai" type="datetime-local" class="form-control datai">
                                                 </div>
                                                 <span class="input-group-addon">ate</span>
                                                 <div class="form-line">
-                                                    <input name="dataf" type="datetime-local" class="datetimepicker form-control">
+                                                    <input name="dataf" type="datetime-local" class="form-control dataf">
                                                 </div>
                                             </div>
                                         </div>
@@ -140,6 +140,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
         <script src="../../js/file_imput.js"></script>
         <script src="../../js/pages/forms/editors.js"></script>
+        <script src="../../js/turma_disciplina_controller.js"></script>
+        <script src="../../js/time_controller.js"></script>
         <!-- #END# Scripts-->
     </body>
 

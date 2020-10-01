@@ -8,7 +8,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Moodle</title>
         
-        <link rel="icon" href="favcon.png"><!-- Favicon-->
+        <link rel="icon" href="../../favcon.png"><!-- Favicon-->
 
         <!-- #START# CSS's -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"><!-- Google Fonts -->
@@ -59,7 +59,7 @@
                                         <ul class="dropdown-menu pull-right">
                                             <li><a href="/professor/conteudos/editar?codigo=<%- conteudo.codigo %>" class=" waves-effect waves-block">Editar</a></li>
                                             <li><a href="/professor/conteudos/visualizar?codigo=<%- conteudo.codigo %>" class=" waves-effect waves-block">Vizualizar</a></li>
-                                            <li><a class="waves-effect waves-block conteuddo_deletar" href="#">Excluir</a></li>
+                                            <li><a class="waves-effect waves-block conteuddo_deletar" data-id="<%- conteudo.codigo %>"" href="#">Excluir</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -85,9 +85,9 @@
         <script src="../../js/pages/cards/colored.js"></script><!-- Custom Js -->
         <script src="../../js/pages/ui/modals.js"></script>
         <script src="../../plugins/dropzone/dropzone.js"></script><!-- Dropzone Plugin Js -->
-        <script src="../../js/demo.js"></script><!-- Demo Js -->
         <script src="../../socket.io/socket.io.js"></script><!-- Socket.IO -->
         <script src="../../js/socket_manager.js"></script><!-- Socket.IO -->
+        <script src="../../js/demo.js"></script><!-- Demo Js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script src="../../js/confirm_conteudo_delete.js"></script><!-- Socket.IO -->
         <!-- #END# Scripts-->

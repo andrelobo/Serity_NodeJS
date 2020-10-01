@@ -43,5 +43,7 @@
          <%- include("menu.ejs") %>
      </aside>
      <!-- #END# Left Sidebar -->
-     <%- include("sidebar(skin_settings).ejs") %>
+    <% if(user.nivel == '3'){ %>
+        <%- include("sidebar(skin_settings).ejs") %>
+    <% } %>
  </section>
