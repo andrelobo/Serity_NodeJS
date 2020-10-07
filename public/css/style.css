@@ -1852,7 +1852,7 @@
   .bg-red .content .text,
   .bg-red .content .number {
     color: #fff !important; }
-
+    .text
 .bg-pink {
   background-color: #E91E63 !important;
   color: #fff; }
@@ -8212,7 +8212,12 @@ html.ie11 .dropdown-menu ul.menu li a {
 html.ie11 .bs-searchbox .form-control {
   width: 90%; }
 
-
+/* Custom CSS*/
 .mensage{
-    text-align: right;
+  text-align: right;
 }
+
+.text2{
+  font-size: 20px;
+}
+

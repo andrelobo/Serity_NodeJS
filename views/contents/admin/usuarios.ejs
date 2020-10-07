@@ -8,7 +8,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Moodle</title>
         
-        <link rel="icon" href="favcon.png"><!-- Favicon-->
+        <link rel="icon" href="favicon.ico" type="image/x-icon"><!-- Favicon-->
 
         <!-- #START# CSS's -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"><!-- Google Fonts -->
@@ -19,7 +19,6 @@
         <link href="plugins/morrisjs/morris.css" rel="stylesheet" /><!-- Morris Chart Css-->
         <link href="css/style.css" rel="stylesheet"><!-- Custom Css -->
         <link href="css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
-        <link href="plugins/waitme/waitMe.css" rel="stylesheet" /> <!--WaitMe Css-->
         <!-- #END# CSS's -->
 
     </head>
@@ -31,45 +30,22 @@
 
         <!-- #START# Content-->
         <section class="content">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        MOODLE <small>O AMBIENTE VIRTUAL DE APRENDIZAGEM DO COLÉGIO SERRANO GUARDIA</small>
-                    </h2>
-                </div>
-                <div class="body">
-                    Esse espaço virtual:<br><br>
-                    1. Disponibiliza vídeos e podcasts (arquivos de áudio) com o próprio professor explicando os conteúdos.<br>
-                    2. Informa a programação das aulas ao vivo com o professor.<br>
-                    3. Apresenta materiais complementares ao livro didático, como links, textos e vídeos.<br>
-                    4. Permite que o aluno apresente suas dúvidas diretamente ao professor, através de mensagens e fóruns.<br>
-                    5. Oferece um mecanismo para a entrega programada de trabalhos (atividades complementares).<br>
-                    6. Permite a realização de avaliações à distância.<br>
-                    O colégio organizou o ambiente em salas virtuais exclusivas para cada turma. Assim, por exemplo, o 7º A ganhou uma sala exclusiva para Português, outra para Matemática, outra para História etc.<br>
-                    O 7º B, por sua vez, tem suas próprias salas organizadas dessa mesma forma para suas disciplinas.<br><br>
-                    Clique aqui e visite os tutoriais para tentar acessar os recursos citados. Se não conseguir ou se encontrar problemas técnicos, sinalize através de um dos canais abaixo (resposta em horário comercial):<br><br>
-                    Secretaria do colégio: (11) 2402-2815 (ramal 212)<br>
-                    WhatsApp: (11) 96402-6994<br>
-                    Fórum "Apoio Técnico e Operacional", dentro do próprio Moodle.
-                </div>
-            </div>
+           
         </section>
         <!-- #END# Content-->
 
         <!-- #START# Scripts-->
         <script src="plugins/jquery/jquery.min.js"></script><!-- JQuery plugin -->
         <script src="plugins/bootstrap/js/bootstrap.js"></script><!-- Bootstrap Core Js -->
+        <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script><!-- Select Plugin Js -->
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script><!-- Slimscroll Plugin Js -->
         <script src="plugins/node-waves/waves.js"></script><!-- Waves Effect Plugin Js -->
         <script src="plugins/waitme/waitMe.js"></script><!-- Wait Me Plugin Js -->
         <script src="js/admin.js"></script><!-- Custom Js -->
         <script src="js/pages/cards/colored.js"></script><!-- Custom Js -->
+        <script src="js/demo.js"></script><!-- Demo Js -->
         <script src="/socket.io/socket.io.js"></script><!-- Socket.IO -->
         <script src="/js/socket_manager.js"></script><!-- Socket.IO -->
-        <script src="js/demo.js"></script><!-- Demo Js -->
-        <script>
-            var user_data = <%- JSON.stringify(user) %>
-        </script>
         <!-- #END# Scripts-->
 
     </body>

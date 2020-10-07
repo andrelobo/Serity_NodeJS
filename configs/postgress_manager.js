@@ -206,17 +206,68 @@ const currentYear = new Date().getFullYear()
                 nivel: req.session.nivel 
             }, 
             active: "conteudos",
-            conteudo: []
+            conteudo: [],
+            anexos: []
         }
 
-        var conteudo = "SELECT * from moodle_conteudos"
-        conteudo += " where moc_codigo='"+req.query.codigo+"'"
+        var conteudo = "SELECT moc_titulo, moc_descricao, moc_datai, moc_dataf, moc_anexos, cla_anoserie, cla_turma, cla_periodo, cla_ensino"
+        conteudo += " FROM moodle_conteudos, diario, classe"
+        conteudo += " WHERE moc_codigo='"+req.query.codigo+"' AND"
+        conteudo += " dia_codigo = moc_diacod  AND"
+        conteudo += " cla_codigo = dia_clacod"
 
         pool.query(conteudo, (err, query_result) => {
-            console.log(err)
-            metadata.conteudo.push(query_result.rows[0])
-            console.log(metadata)
-            res.render('contents/professor/conteudos_visualizar', metadata)
+
+            if(query_result.rows[0].cla_ensino == "Ensino Fundamental"){
+                var ensino = "EF"
+            }else{
+                var ensino = "EM"
+            }
+            var turma = query_result.rows[0].cla_anoserie+"º "+ensino+" "+query_result.rows[0].cla_turma
+
+            var datai = query_result.rows[0].moc_datai.toISOString().slice(0,16).split("T");
+            var datai_date = datai[0].split("-")
+            datai = datai_date[2]+"/"+datai_date[1]+"/"+datai_date[0]+" "+datai[1]
+
+            var dataf = query_result.rows[0].moc_dataf.toISOString().slice(0,16).split("T");
+            var dataf_date = dataf[0].split("-")
+            dataf = dataf_date[2]+"/"+dataf_date[1]+"/"+dataf_date[0]+" "+dataf[1]
+
+            metadata.conteudo.push({
+                titulo: query_result.rows[0].moc_titulo,
+                descricao: query_result.rows[0].moc_descricao,
+                datai: datai,
+                dataf: dataf,
+                have_anexos: query_result.rows[0].moc_anexos,
+                turma: turma
+            })
+
+            if(query_result.rows[0].moc_anexos == true){
+
+                var pega_anexos = "SELECT moa_path, moa_oriname, moa_filename FROM moodle_anexos"
+                pega_anexos += " WHERE moa_moccod = '"+req.query.codigo+"'"
+
+                pool.query(pega_anexos, (err, query_result_anexos) => {
+                    console.log(err)
+                    var count = query_result_anexos.rows.length
+                    var conter = 0;
+                    query_result_anexos.rows.forEach(row => {
+                        metadata.anexos.push({
+                            path: row.moa_path,
+                            oriname: row.moa_oriname,
+                            filename: row.moa_filename
+                        })
+                        conter++
+                        if(conter == count){
+                            res.render('contents/professor/conteudos_visualizar', metadata)
+                        }
+                    })
+                });
+
+            }else{
+                res.render('contents/professor/conteudos_visualizar', metadata)
+            }
+
         });
 
     }
@@ -451,6 +502,22 @@ const currentYear = new Date().getFullYear()
     }
 /* #END# Log */
 
+/* #START# Chat */
+    const chat_insert = (data) => {
+
+    }
+    const chat_select = (data) => {
+        
+    }
+    const chat_update = (data) => {
+        
+    }
+    const chat_delete = (data) => {
+        
+    }
+
+/* #END# Chat */
+
 module.exports = {
     "login_select": login_select,
     "login_insert": login_insert,
@@ -475,5 +542,10 @@ module.exports = {
 
     "log_select": log_select,
     "log_insert": log_insert,
-    "log_delete": log_delete
+    "log_delete": log_delete,
+
+    "chat_insert": chat_insert,
+    "chat_select": chat_select,
+    "chat_update": chat_update,
+    "chat_delete": chat_delete
 }

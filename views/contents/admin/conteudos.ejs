@@ -22,6 +22,7 @@
         <link href="../../css/style.css" rel="stylesheet"><!-- Custom Css -->
         <link href="../../plugins/dropzone/dropzone.css" rel="stylesheet"><!-- Dropzone Css -->
         <link href="../../css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <!-- #END# CSS's -->
 
         
@@ -36,66 +37,37 @@
         <!-- #START# Content-->
         <section class="content">
             <div class="container-fluid">
-                <div class="row clearfix">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box bg-red hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">class</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">CLASSE</div>
-                            <div class="text2"><b><%- conteudo[0].turma %></b></div>
-                        </div>
-                    </div>
+                <div class="block-header">
+                    <h2>Conteudos</h2><br>
+                    <a href="/professor/conteudos/adicionar">
+                        <button type="button" data-color="red" data-toggle="modal" data-target="#mdModal" class="btn bg-red waves-effect">Adicionar</button>
+                    </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box bg-cyan hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">date_range</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">DATA INICIAL</div>
-                            <div class="text2"><b><%- conteudo[0].datai %></b></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box bg-light-green hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">date_range</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">DATA FINAL</div>
-                            <div class="text2"><b><%- conteudo[0].dataf %></b></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <% conteudos.forEach((conteudo) => { %>
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
                         <div class="card">
                             <div class="header bg-red">
                                 <h2>
-                                   <%- conteudo[0].titulo %> 
+                                    <%- conteudo.titulo %>
                                 </h2>
-                            </div>
-                            <div class="body">
-                                <%- conteudo[0].descricao %>
-                                <br>
-                                <% anexos.forEach(anexo => { %>
-                                    <label>
-                                        <a href="/download?file=<%- anexo.path %>&asfile=<%- anexo.oriname %>" target="_blank">
-                                            <button type="button" class="btn btn-success waves-effect">
-                                                <i class="material-icons">file_download</i>
-                                                <span>BAIXAR</span>
-                                            </button>
-                                        </a> <%- anexo.oriname %>
-                                    </label><br>
-                                <% }); %>
+                                <ul class="header-dropdown m-r--5">
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="/professor/conteudos/editar?codigo=<%- conteudo.codigo %>" class=" waves-effect waves-block">Editar</a></li>
+                                            <li><a href="/professor/conteudos/visualizar?codigo=<%- conteudo.codigo %>" class=" waves-effect waves-block">Vizualizar</a></li>
+                                            <li><a class="waves-effect waves-block conteuddo_deletar" data-id="<%- conteudo.codigo %>"" href="#">Excluir</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </div>
+                <% }) %>
+
             </div>
         </section>
         <!-- #END# Content-->
@@ -113,9 +85,11 @@
         <script src="../../js/pages/cards/colored.js"></script><!-- Custom Js -->
         <script src="../../js/pages/ui/modals.js"></script>
         <script src="../../plugins/dropzone/dropzone.js"></script><!-- Dropzone Plugin Js -->
-        <script src="../../js/demo.js"></script><!-- Demo Js -->
         <script src="../../socket.io/socket.io.js"></script><!-- Socket.IO -->
         <script src="../../js/socket_manager.js"></script><!-- Socket.IO -->
+        <script src="../../js/demo.js"></script><!-- Demo Js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        <script src="../../js/confirm_conteudo_delete.js"></script><!-- Socket.IO -->
         <!-- #END# Scripts-->
 
     </body>

@@ -29,7 +29,7 @@ const conteudosroute = (app,postgress_manager,uploader) => {
         console.log("[X]deletado um conteudo: "+JSON.stringify(req.body))
         postgress_manager.conteudo_delete(req,res)
     })
-
+    
 }
 
 module.exports = conteudosroute

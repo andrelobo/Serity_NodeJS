@@ -9,11 +9,11 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 //custom requires
-const postgress_manager = require('./configs/postgress_manager')                    //Postegress Conector
+const postgress_manager = require('./configs/postgress_manager')                    //Postegress Connector
 const socket_manager = require('./configs/socket_manager')(io, postgress_manager)   //Socket.io Server
 const multer_manager = require('./configs/multer_manager')                          //Multer uploader
 
-//MiddleWares
+//Middlewares
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
@@ -30,6 +30,7 @@ const trabalhosroute = require('./routes/trabalhosroute')(app,postgress_manager)
 const chatsroute = require('./routes/chatsroute')(app,postgress_manager)
 const avaliacoesroute = require('./routes/avaliacoesroute')(app,postgress_manager)
 const relatoriosroute = require('./routes/relatoriosroute')(app,postgress_manager)
+const otherroutes = require('./routes/otherroutes')(app,postgress_manager)
 
 //Startup
 const port = 3000
