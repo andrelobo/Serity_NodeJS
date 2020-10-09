@@ -248,7 +248,6 @@ const currentYear = new Date().getFullYear()
                 pega_anexos += " WHERE moa_moccod = '"+req.query.codigo+"'"
 
                 pool.query(pega_anexos, (err, query_result_anexos) => {
-                    console.log(err)
                     var count = query_result_anexos.rows.length
                     var conter = 0;
                     query_result_anexos.rows.forEach(row => {
