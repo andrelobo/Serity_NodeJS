@@ -1,5 +1,4 @@
 
-
 var currentConnections = {};
 var currentConnectionsCounter = 0;
 
@@ -13,6 +12,7 @@ const socket_manager = (io, postgress_manager) => {
             currentConnections[socket.id] = {user: data};
             console.log("[!] usuario: "+data.name+" entrou")
             console.log("[!] onlines: "+currentConnectionsCounter)
+            io.sockets.emit("user_online",currentConnections[socket.id].user)
             socket.emit("ready")
         });
 
@@ -26,6 +26,7 @@ const socket_manager = (io, postgress_manager) => {
 
         socket.on("disconnect", function(){
             console.log("[!] usuario: "+currentConnections[socket.id].user.name+" saiu");
+            io.sockets.emit("user_offline",currentConnections[socket.id].user)
             currentConnectionsCounter--
             delete currentConnections[socket.id];
             console.log("[!] onlines: "+currentConnectionsCounter)

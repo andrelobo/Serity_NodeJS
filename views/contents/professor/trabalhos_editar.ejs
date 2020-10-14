@@ -48,13 +48,13 @@
                                 </h2>
                             </div>
                             <div class="body">
-                                <form action="/professor/conteudos/editar" method="POST" enctype="multipart/form-data">
-                                    <input type="hidden" name="codigo" value="<%- conteudo[0].codigo %>">
+                                <form action="/professor/trabalhos/editar" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="codigo" value="<%- trabalho[0].codigo %>">
                                     <div class="modal-body">
                                         <div class="form-group form-float">
                                             <p><b>Titulo</b></p>
                                             <div class="form-line">
-                                                <input name="titulo" type="text" value="<%- conteudo[0].titulo %>" class="form-control">
+                                                <input name="titulo" type="text" value="<%- trabalho[0].titulo %>" class="form-control">
                                                 <label class="form-label">Titulo</label>
                                             </div>
                                         </div>
@@ -62,7 +62,7 @@
                                             <p><b>Descrição</b></p>
                                             <div class="form-line">
                                                 <textarea name=descricao id="ckeditor" placeholder="Descrição">
-                                                    <%- conteudo[0].descricao %>
+                                                    <%- trabalho[0].descricao %>
                                                 </textarea>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                                             <p><b>Turma(s)</b></p>
                                             <select name="turma" class="form-control show-tick">
                                                 <% turmas.forEach((turma) => { %>
-                                                    <% if(conteudo[0].turma_codigo == turma.codigo){ %> 
+                                                    <% if(trabalho[0].turma_codigo == turma.codigo){ %> 
                                                         <option value="<%- turma.codigo %>" selected><%- turma.turma %></option>
                                                     <% }else{ %> 
                                                         <option value="<%- turma.codigo %>"><%- turma.turma %></option>
@@ -82,7 +82,7 @@
                                             <p><b>Disciplina</b></p>
                                             <select name="disciplina" class="form-control show-tick">
                                                 <% disciplinas.forEach((disciplina) => { %>
-                                                    <% if(conteudo[0].dis_codigo == disciplina.codigo){ %> 
+                                                    <% if(trabalho[0].dis_codigo == disciplina.codigo){ %> 
                                                         <option value="<%- disciplina.codigo %>" selected><%- disciplina.descricao %></option>
                                                     <% }else{ %> 
                                                         <option value="<%- disciplina.codigo %>"><%- disciplina.descricao %></option>
@@ -95,11 +95,11 @@
                                             <p><b>Data/hora inicio - fim</b></p>
                                             <div class="input-daterange input-group" id="bs_datepicker_range_container">
                                                 <div class="form-line">
-                                                    <input name="datai" type="datetime-local" value="<%- conteudo[0].datai %>" class="form-control">
+                                                    <input name="datai" type="datetime-local" value="<%- trabalho[0].datai %>" class="form-control">
                                                 </div>
                                                 <span class="input-group-addon">ate</span>
                                                 <div class="form-line">
-                                                    <input name="dataf" type="datetime-local" value="<%- conteudo[0].dataf %>" class="datetimepicker form-control">
+                                                    <input name="dataf" type="datetime-local" value="<%- trabalho[0].dataf %>" class="datetimepicker form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script src="../../js/file_imput.js"></script>
-        <script src="../../js/confirm_anexos_delete.js"></script>
+        <script src="../../js/confirm_anexos_delete2.js"></script>
         <script src="../../js/pages/forms/editors.js"></script>
         <script>
             var user_data = <%- JSON.stringify(user) %>

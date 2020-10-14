@@ -14,6 +14,14 @@ $(function() {
         socket.emit("getOnlineUsers")
     });
 
+    socket.on("user_online", function(user) {
+        $( ".list-users" ).append('<li class="list-group-item '+user.codigo+' >'+user.name+'</li>');
+    });
+
+    socket.on("user_online", function(user) {
+        $( ".list-users" ).append('<li class="list-group-item '+user.codigo+' >'+user.name+'</li>');
+    });
+
     socket.on("onlineUsers", function(msg) {
         
         var obj = JSON.parse(msg);

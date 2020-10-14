@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>Moodle</title>
+        
+        <link rel="icon" href="../../favcon.png"><!-- Favicon-->
+
+        <!-- #START# CSS's -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"><!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"><!-- Google Fonts -->
+        <link href="../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet"><!-- Bootstrap Core Css -->
+        <link href="../../plugins/node-waves/waves.css" rel="stylesheet" /><!-- Waves Effect Css -->
+        <link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" /><!-- Bootstrap Select Css -->
+        <link href="../../plugins/multi-select/css/multi-select.css" rel="stylesheet"><!-- Multi Select Css -->
+        <link href="../../plugins/animate-css/animate.css" rel="stylesheet" /><!-- Animation Css -->
+        <link href="../../plugins/morrisjs/morris.css" rel="stylesheet" /><!-- Morris Chart Css-->
+        <link href="../../css/style.css" rel="stylesheet"><!-- Custom Css -->
+        <link href="../../plugins/dropzone/dropzone.css" rel="stylesheet"><!-- Dropzone Css -->
+        <link href="../../css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+        <!-- #END# CSS's -->
+
+    </head>
+
+    <body class="theme-red">
+
+        <%- include("../../layouts/page_loader.ejs") %>
+        <%- include("../../layouts/sidebars_all.ejs") %>
+
+        <!-- #START# Content-->
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header bg-red">
+                                <h2>
+                                    Adicionar Avaliação
+                                </h2>
+                            </div>
+                            <div class="body">
+                                <form action="/professor/avaliacoes/adicionar" method="POST" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        <div class="form-group form-float">
+                                            <p><b>Titulo</b></p>
+                                            <div class="form-line">
+                                                <input name="titulo" type="text" class="form-control">
+                                                <label class="form-label">Titulo</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Descrição</b></p>
+                                        <div class="form-line">
+                                            <textarea name=descricao id="ckeditor" placeholder="Descrição"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Turma(s)</b></p>
+                                        <select name="turma" class="form-control show-tick" multiple>
+                                            <% turmas.forEach((turma) => { %>
+                                                <option class="turma" value="<%- turma.codigo %>" data-turma="<%- turma.turma %>"><%- turma.turma %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Disciplina</b></p>
+                                        <select name="disciplina" class="form-control show-tick" multiple>
+                                            <% disciplinas.forEach((disciplina) => { %>
+                                                <option class="disciplina" value="<%- disciplina.codigo %>" data-descricao="<%- disciplina.descricao %>"><%- disciplina.descricao %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <p><b>Data/hora inicio - fim</b></p>
+                                        <div class="input-daterange input-group" id="bs_datepicker_range_container">
+                                            <div class="form-line">
+                                                <input name="datai" type="datetime-local" class="form-control datai">
+                                            </div>
+                                            <span class="input-group-addon">ate</span>
+                                            <div class="form-line">
+                                                <input name="dataf" type="datetime-local" class="form-control dataf">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-group quest-list" id="accordion_1" role="tablist" aria-multiselectable="true">
+                                       
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading" role="tab" id="headingOne_1">
+                                                <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="false" aria-controls="collapseOne_1" class="collapsed">
+                                                       Questão-1
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne_1" aria-expanded="false" style="height: 0px;">
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" name="quest[1]" class="form-control" placeholder="Titulo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <p><b>Descrição</b></p>
+                                                        <div class="form-line">
+                                                            <textarea name=quest[1] id="ckeditor2" placeholder="Descrição"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <p><b>Respostas</b></p>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[1]" value="1" class="with-gap" id="ig_radio" checked>
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[1]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[1]" value="2" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[1]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[1]" value="3" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[1]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[1]" value="4" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[1]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[1]" value="5" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[1]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <p><b>Anexos</b></p>
+                                                        <input name="anexos[1]" id="anexos" type="file" class="form-control" multiple>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading" role="tab" id="headingOne_2">
+                                                <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_2" aria-expanded="false" aria-controls="collapseOne_2" class="collapsed">
+                                                       Questão-2
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne_2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne_1" aria-expanded="false" style="height: 0px;">
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" name="quest[2]" class="form-control" placeholder="Titulo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <p><b>Descrição</b></p>
+                                                        <div class="form-line">
+                                                            <textarea name=quest[2] id="ckeditor3" placeholder="Descrição"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <p><b>Respostas</b></p>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[2]" value="1" class="with-gap" id="ig_radio" checked>
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[2]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[2]" value="2" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[2]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[2]" value="3" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[2]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[2]" value="4" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[2]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group input-group">
+                                                            <span class="input-group-addon">
+                                                                <input type="radio" name="quest[2]" value="5" class="with-gap" id="ig_radio">
+                                                                <label for="ig_radio"></label>
+                                                            </span>
+                                                            <div class="form-line">
+                                                                <input type="text" name="quest[2]" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <p><b>Anexos</b></p>
+                                                        <input name="anexos[2]" id="anexos" type="file" class="form-control" multiple>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <button type="button" class="btn btn-success waves-effect add-quest">
+                                            <i class="material-icons">add</i>
+                                            <span>Adicionar questão</span>
+                                        </button>
+                                        <button type="submit" class="btn btn-success waves-effect">
+                                            <i class="material-icons">save</i>
+                                            <span>Salvar</span>
+                                        </button>
+                                        <button type="reset" class="btn btn-danger waves-effect">
+                                            <i class="material-icons">delete</i>
+                                            <span>Cancelar</span>
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- #END# Content-->
+
+        <!-- #START# Scripts-->
+        <script src="../../plugins/jquery/jquery.min.js"></script><!-- JQuery plugin -->
+        <script src="../../plugins/bootstrap/js/bootstrap.js"></script><!-- Bootstrap Core Js -->
+        <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script><!-- Select Plugin Js -->
+        <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script><!-- Slimscroll Plugin Js -->
+        <script src="../../plugins/node-waves/waves.js"></script><!-- Waves Effect Plugin Js -->
+        <script src="../../plugins/waitme/waitMe.js"></script><!-- Wait Me Plugin Js -->
+        <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+        <script src="../../plugins/multi-select/js/jquery.multi-select.js"></script>
+        <script src="../../plugins/ckeditor/ckeditor.js"></script><!-- Ckeditor -->
+        <script src="../../js/admin.js"></script><!-- Custom Js -->
+        <script src="../../js/pages/cards/colored.js"></script><!-- Custom Js -->
+        <script src="../../js/pages/ui/modals.js"></script>
+        <script src="../../plugins/dropzone/dropzone.js"></script><!-- Dropzone Plugin Js -->
+        <script src="../../js/demo.js"></script><!-- Demo Js -->
+        <script src="../../socket.io/socket.io.js"></script><!-- Socket.IO -->
+        <script src="../../js/socket_manager.js"></script><!-- Socket.IO -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/purify.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
+        <script src="../../js/file_imput.js"></script>
+        <script src="../../js/pages/forms/editors.js"></script>
+        <script src="../../js/turma_disciplina_controller.js"></script>
+        <script src="../../js/time_controller.js"></script>
+        <script src="../../js/avaliation_controller.js"></script>
+        <script>
+            var user_data = <%- JSON.stringify(user) %>
+        </script>
+        <!-- #END# Scripts-->
+    </body>
+
+</html>

@@ -24,10 +24,7 @@
         <link href="../../css/themes/all-themes.css" rel="stylesheet" /><!-- AdminBSB Themes -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <!-- #END# CSS's -->
-
-        
 
     </head>
 
@@ -39,55 +36,44 @@
         <!-- #START# Content-->
         <section class="content">
             <div class="container-fluid">
+
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
                             <div class="header bg-red">
                                 <h2>
-                                    Editar
+                                    Adicionar Trabalhos
                                 </h2>
                             </div>
                             <div class="body">
-                                <form action="/professor/conteudos/editar" method="POST" enctype="multipart/form-data">
-                                    <input type="hidden" name="codigo" value="<%- conteudo[0].codigo %>">
+                                <form action="/professor/trabalhos/adicionar" method="POST" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         <div class="form-group form-float">
                                             <p><b>Titulo</b></p>
                                             <div class="form-line">
-                                                <input name="titulo" type="text" value="<%- conteudo[0].titulo %>" class="form-control">
+                                                <input name="titulo" type="text" class="form-control">
                                                 <label class="form-label">Titulo</label>
                                             </div>
                                         </div>
                                         <div class="form-group form-float">
                                             <p><b>Descrição</b></p>
                                             <div class="form-line">
-                                                <textarea name=descricao id="ckeditor" placeholder="Descrição">
-                                                    <%- conteudo[0].descricao %>
-                                                </textarea>
+                                                <textarea name=descricao id="ckeditor" placeholder="Descrição"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group form-float">
                                             <p><b>Turma(s)</b></p>
-                                            <select name="turma" class="form-control show-tick">
+                                            <select name="turma" class="form-control show-tick" multiple>
                                                 <% turmas.forEach((turma) => { %>
-                                                    <% if(conteudo[0].turma_codigo == turma.codigo){ %> 
-                                                        <option value="<%- turma.codigo %>" selected><%- turma.turma %></option>
-                                                    <% }else{ %> 
-                                                        <option value="<%- turma.codigo %>"><%- turma.turma %></option>
-                                                    <% } %> 
+                                                    <option class="turma" value="<%- turma.codigo %>" data-turma="<%- turma.turma %>"><%- turma.turma %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
                                         <div class="form-group form-float">
                                             <p><b>Disciplina</b></p>
-                                            <select name="disciplina" class="form-control show-tick">
+                                            <select name="disciplina" class="form-control show-tick" multiple>
                                                 <% disciplinas.forEach((disciplina) => { %>
-                                                    <% if(conteudo[0].dis_codigo == disciplina.codigo){ %> 
-                                                        <option value="<%- disciplina.codigo %>" selected><%- disciplina.descricao %></option>
-                                                    <% }else{ %> 
-                                                        <option value="<%- disciplina.codigo %>"><%- disciplina.descricao %></option>
-                                                    <% } %> 
-                                                
+                                                    <option class="disciplina" value="<%- disciplina.codigo %>" data-descricao="<%- disciplina.descricao %>"><%- disciplina.descricao %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -95,38 +81,16 @@
                                             <p><b>Data/hora inicio - fim</b></p>
                                             <div class="input-daterange input-group" id="bs_datepicker_range_container">
                                                 <div class="form-line">
-                                                    <input name="datai" type="datetime-local" value="<%- conteudo[0].datai %>" class="form-control">
+                                                    <input name="datai" type="datetime-local" class="form-control datai">
                                                 </div>
                                                 <span class="input-group-addon">ate</span>
                                                 <div class="form-line">
-                                                    <input name="dataf" type="datetime-local" value="<%- conteudo[0].dataf %>" class="datetimepicker form-control">
+                                                    <input name="dataf" type="datetime-local" class="form-control dataf">
                                                 </div>
                                             </div>
                                         </div>
-                                        <% if(anexos.length != 0){ %>
-                                            <div class="form-group form-float anexos-header">
-                                                <p><b>Anexos</b></p>
-                                                <% var conter=0; anexos.forEach(anexo => { %>
-                                                    <label class="anexo<%- conter %>">
-                                                        <a href="/download?file=<%- anexo.path %>&asfile=<%- anexo.oriname %>" target="_blank">
-                                                            <button type="button" class="btn btn-success waves-effect">
-                                                                <i class="material-icons">file_download</i>
-                                                                <span>BAIXAR</span>
-                                                            </button>
-                                                        </a>
-                                                        <a>
-                                                            <button type="button" data-div="<%- conter %>" data-codigo="<%- anexo.codigo %>"  class="btn bg-red waves-effect delete-anexo">
-                                                                <i class="material-icons">delete_forever</i>
-                                                                <span>DELETAR</span>
-                                                            </button>
-                                                        </a> <%- anexo.oriname %>
-                                                    </label>
-                                                    <br class="anexo<%- conter %>">
-                                                <% conter++ }); %>
-                                            </div>
-                                        <% } %>
                                         <div class="form-group form-float">
-                                            <p><b>Adicionar Anexos</b></p>
+                                            <p><b>Anexos</b></p>
                                             <input name="anexos" id="anexos" type="file" class="form-control" multiple>
                                         </div>
                                         <div class="form-group form-float">
@@ -145,6 +109,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
         <!-- #END# Content-->
@@ -173,15 +138,14 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script src="../../js/file_imput.js"></script>
-        <script src="../../js/confirm_anexos_delete.js"></script>
         <script src="../../js/pages/forms/editors.js"></script>
+        <script src="../../js/turma_disciplina_controller.js"></script>
+        <script src="../../js/time_controller.js"></script>
         <script>
             var user_data = <%- JSON.stringify(user) %>
         </script>
         <!-- #END# Scripts-->
-
     </body>
 
 </html>
