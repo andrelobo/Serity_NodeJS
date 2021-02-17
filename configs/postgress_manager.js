@@ -1,11 +1,11 @@
 const { Pool } = require('pg')
 
 const pool = new Pool({
-    user: 'newstar',
-    host: '192.168.0.70',
-    database: 'desenvolve_2',
-    password: 'Enoisquesimula',
-    port: 5432,
+    user: '',
+    host: '',
+    database: '',
+    password: '',
+    port: ,
 })
 
 const currentYear = new Date().getFullYear()
